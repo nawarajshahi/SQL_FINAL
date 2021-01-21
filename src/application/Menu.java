@@ -1,11 +1,14 @@
 package application;
+
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import dao.OrganizationsDao;
 import dao.VolunteersDao;
+import entity.Member;
 import entity.Organizations;
+import entity.Team;
 import entity.Volunteers;
 
 
@@ -55,10 +58,11 @@ public class Menu {
 //				maintainProjTable();
 			}
 			
-			System.out.println("\nPlease enter to continue to the program...");
+			System.out.println("\nPlease press enter to continue the program...");
 			input.nextLine();
 			
 		}while (!selection.equals("-1"));
+			System.out.println("Have a nice day.");
 	}
 	
 	
@@ -205,7 +209,10 @@ public class Menu {
 	
 	/*
 	 * =============================================================================================
-	 */
+	 * All the org menu methods implemented
+	 */ 
+	
+
 	
 
 }
