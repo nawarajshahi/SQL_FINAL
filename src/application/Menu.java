@@ -155,6 +155,7 @@ public class Menu {
 			System.out.println(org_id + " does not exist in the database.\nWould you like to create the organization? (Y/N)");
 			decision = input.next().charAt(0);
 			if(decision == 'Y' || decision =='y') {
+				//create an organization
 				createOrg();
 			}
 			
