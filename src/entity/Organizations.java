@@ -11,9 +11,10 @@ public class Organizations {
 	private List<Volunteers> volunteers;
 	
 	//Constructor
-	public Organizations(int org_id, String name, String address, String phone) {
+	public Organizations(int org_id, String name, String address, String phone, List<Volunteers> volunteers) {
 		this.setOrg_id(org_id);
 		this.setName(name);
+		this.setVolunteers(volunteers);
 		this.setAddress(address);
 		this.setPhone(phone);
 	}
@@ -26,6 +27,8 @@ public class Organizations {
 	public int getOrg_id() {
 		return org_id;
 	}
+	
+	//We don't want people to be able to set ID because it's auto-incremement, correct?
 	public void setOrg_id(int org_id) {
 		this.org_id = org_id;
 	}
