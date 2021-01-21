@@ -21,7 +21,7 @@ public class DBConnection {
 			try {
 				connection = DriverManager.getConnection(url, userName, password);
 				instance = new DBConnection(connection);
-				System.out.println("Successfully connected..");
+				System.out.println("Successfully connected.");
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}

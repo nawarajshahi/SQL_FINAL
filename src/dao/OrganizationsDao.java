@@ -24,28 +24,27 @@ public class OrganizationsDao {
 		volunteerDao = new VolunteersDao();
 	}
 	
-	/*
 	
 	public List<Organizations> getOrgs() throws SQLException{
 		ResultSet rs = connection.prepareStatement(GET_ORGS_QUERY).executeQuery();
 		List<Organizations> organizations = new ArrayList<Organizations>();
 		
 		while(rs.next()) {
-			organizations.add(populateOrganizations(rs.getInt(1), rs.getString(2)));
+			organizations.add(populateOrganization(rs.getInt(1), rs.getString(2)));
 		}
 		
 		return organizations;
 	}
 	
 	public Organizations getOrgById(int org_id) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(GET_AN_ORG_BY_ID_QUERY);
+		PreparedStatement ps = connection.prepareStatement(GET_ORG_BY_ID_QUERY);
 		ps.setInt(1, org_id);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
-		return populateOrganizations(rs.getInt(1), rs.getString(2));
+		return populateOrganization(rs.getInt(1), rs.getString(2));
 	}
 	
-	public createNewOrg(String name) throws SQLException {
+	public void createNewOrg(String name) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(ADD_NEW_ORG_QUERY);
 		ps.setString(1, name);
 		ps.executeUpdate();
@@ -54,8 +53,8 @@ public class OrganizationsDao {
 	public void updateOrgById(int org_id, String name, String address, String phone) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(UPDATE_ORG_BY_ID_QUERY);
 		ps.setString(1, name);
-		ps.setInt(2, address);
-		ps.setInt(3, phone);
+		ps.setString(2, address);
+		ps.setString(3, phone);
 		ps.setInt(4, org_id);
 		ps.executeUpdate();
 	}
@@ -67,10 +66,9 @@ public class OrganizationsDao {
 	}
 	
 	private Organizations populateOrganization(int org_id, String name) throws SQLException {
-		return new Organization(org_id, name, volunteerDao.getVolunteersByOrg(org_id));
+		return new Organizations(org_id, name, volunteerDao.getAVolunteerById(id));
 	}
 	
-	*/
 }
 
 
