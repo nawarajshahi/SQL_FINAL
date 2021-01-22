@@ -11,7 +11,6 @@ public class DBConnection {
 	private final static String url = "jdbc:mysql://localhost:3306/" + database;
 	private final static String userName = "root";
 
-	private final static String password = "IsMySQL2Obvious?";
 
 	private static Connection connection;
 	private static DBConnection instance;

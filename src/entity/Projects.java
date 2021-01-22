@@ -7,17 +7,18 @@ public class Projects {
 	private String proj_desc;
 	
 	
-	
+	//no args default constructor
 	public Projects() {
 	}
-	
+
+	//overloaded constructor
 	public Projects(int proj_id, int org_id, String proj_name, String proj_desc) {
-//		super();
-		//this.proj_id = proj_id;
 		this.org_id = org_id;
 		this.proj_name = proj_name;
 		this.proj_desc = proj_desc;
 	}
+
+	//getters and setters
 	public int getProj_id() {
 		return proj_id;
 	}

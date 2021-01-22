@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Organizations;
-import entity.Volunteers;
 
 public class OrganizationsDao {
 	
@@ -70,7 +69,6 @@ public class OrganizationsDao {
 		ps.executeUpdate();
 	}
 	
-
 	private Organizations populateOrganization(int org_id, String name, String address, String phone) throws SQLException {
 		return new Organizations(org_id, name, address, phone, volunteerDao.getAVolunteerById(org_id));
 	}
