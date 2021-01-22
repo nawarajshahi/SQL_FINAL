@@ -69,10 +69,7 @@ public class OrganizationsDao {
 		ps.executeUpdate();
 	}
 	
-<<<<<<< HEAD
 
-=======
->>>>>>> dev
 	private Organizations populateOrganization(int org_id, String name, String address, String phone) throws SQLException {
 		return new Organizations(org_id, name, address, phone, volunteerDao.getAVolunteerById(org_id));
 	}

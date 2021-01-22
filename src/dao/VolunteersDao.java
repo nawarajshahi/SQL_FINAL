@@ -18,7 +18,7 @@ public class VolunteersDao {
 	private final String DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY = "DELETE FROM members WHERE team_id = ?"; //Renee
 
 	private final String UPDATE_VOLUNTEER_BY_ID_QUERY = "UPDATE volunteers SET org_id=?, full_name=?, phone=? WHERE vol_id=?";
->>>>>>> dev
+
 	
 			
 	private Connection connection;
