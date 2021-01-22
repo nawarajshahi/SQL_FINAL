@@ -27,18 +27,21 @@ public class Menu {
 	private List<String> orgOptions = Arrays.asList("Dislay organizations",
 													"Display an organization",
 													"Create an organization",
+													"Update an organization",
 													"Delete an organization",
 													"Return to main menu");
 	
 	private List<String> volOptions = Arrays.asList("Dislay volunteers",
 													"Display a volunteer",
 													"Create a volunteer",
+//													"Update an organization",
 													"Delete a volunteer",
 													"Return to main menu");
 	
 	private List<String> projOptions = Arrays.asList("Dislay projects",
 													"Display a project",
 													"Create a project",
+//													"Update an organization",
 													"Delete a project",
 													"Return to main menu");
 	
@@ -212,9 +215,53 @@ public class Menu {
 	 * All the org menu methods implemented
 	 */ 
 	
-
+	private void displayOrgs() throws SQLException {
+		List<Organizations> organizations = orgDao.getOrgs();
+		for (Organizations organization : organizations) {
+			System.out.println(organization.getOrg_id() + ": " + organization.getName());
+		}
+	}
 	
-
+	private void displayOrgById() throws SQLException {
+		System.out.println("Enter organization ID: ");
+		int org_id = Integer.parseInt(input.nextLine());
+		Organizations organizations = orgDao.getOrgById(org_id);
+		System.out.println(organizations.getOrg_id() + ": " + organizations.getName());
+		for (Volunteers volunteers : organizations.getVolunteers()) {
+			System.out.println("\tOrganization ID: " + volunteers.getVol_id() + " - Name: " + volunteers.getFull_name() + " " + volunteers.getPhone());
+		}
+	}
+	
+	private void createOrg() throws SQLException {
+		System.out.print("Enter name of new organization: ");
+		String name = input.nextLine();
+		System.out.print("Enter new address: ");
+		String address = input.nextLine();
+		System.out.print("Enter new phone number: ");
+		String phone = input.nextLine();
+		
+		orgDao.createNewOrg(name, address, phone);
+	}
+	
+	private void updateOrganization() throws SQLException {
+		System.out.println("Enter ID of the organization to update: ");
+		int org_id = Integer.parseInt(input.nextLine());
+		System.out.println("Enter updated name: ");
+		String name = input.nextLine();
+		System.out.println("Enter updated address: ");
+		String address = input.nextLine();
+		System.out.println("Enter updated phone number: ");
+		String phone = input.nextLine();
+				
+		orgDao.updateOrgById(org_id, name, address, phone);
+	}
+	
+	private void deleteOrganization() throws SQLException {
+		System.out.print("Enter ID of the organization to delete: ");
+		int org_id = Integer.parseInt(input.nextLine());
+		orgDao.deleteOrgById(org_id);
+	}
+	
 }
 
 

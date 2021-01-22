@@ -15,6 +15,7 @@ public class VolunteersDao {
 	private final String GET_VOLUNTEER_BY_ID = "SELECT * FROM volunteers WHERE vol_id = ?";
 	private final String CREATE_NEW_VOLUNTEER_QUERY = "INSERT INTO volunteers(vol_id, org_id, full_name, phone) VALUES (?, ?, ?, ?)";
 	private final String DELETE_VOLUNTEER_BY_ID_QUERY = "DELETE FROM volunteers WHERE vol_id = ?";
+	private final String DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY = "DELETE FROM members WHERE team_id = ?"; //Renee
 	
 			
 	private Connection connection;
@@ -72,6 +73,12 @@ public class VolunteersDao {
 		
 	}
 	
+	//Renee
+	public void deleteVolunteersByOrgId(int org_id) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY);
+		ps.setInt(1, org_id);
+		ps.executeUpdate();
+	}
 	
 	
 }

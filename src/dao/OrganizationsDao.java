@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Organizations;
+import entity.Volunteers;
 
 public class OrganizationsDao {
 	
@@ -30,7 +31,7 @@ public class OrganizationsDao {
 		List<Organizations> organizations = new ArrayList<Organizations>();
 		
 		while(rs.next()) {
-			organizations.add(populateOrganization(rs.getInt(1), rs.getString(2)));
+			organizations.add(populateOrganization(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
 		}
 		
 		return organizations;
@@ -41,12 +42,15 @@ public class OrganizationsDao {
 		ps.setInt(1, org_id);
 		ResultSet rs = ps.executeQuery();
 		rs.next();
-		return populateOrganization(rs.getInt(1), rs.getString(2));
+		return populateOrganization(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4));
+		//Add address and phone
 	}
 	
-	public void createNewOrg(String name) throws SQLException {
+	public void createNewOrg(String name, String address, String phone) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(ADD_NEW_ORG_QUERY);
 		ps.setString(1, name);
+		ps.setString(2, address);
+		ps.setString(3, phone);
 		ps.executeUpdate();
 	}
 
@@ -60,14 +64,16 @@ public class OrganizationsDao {
 	}
 	
 	public void deleteOrgById(int org_id) throws SQLException {
+		volunteerDao.deleteVolunteersByOrgId(org_id);
 		PreparedStatement ps = connection.prepareStatement(DELETE_ORG_BY_ID_QUERY);
 		ps.setInt(1, org_id);
 		ps.executeUpdate();
 	}
 	
-	private Organizations populateOrganization(int org_id, String name) throws SQLException {
-		return new Organizations(org_id, name, volunteerDao.getAVolunteerById(id));
+	private Organizations populateOrganization(int org_id, String name, String address, String phone) throws SQLException {
+		return new Organizations(org_id, name, address, phone, volunteerDao.getAVolunteerById(org_id));
 	}
+	
 	
 }
 
