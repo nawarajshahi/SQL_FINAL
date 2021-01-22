@@ -115,9 +115,6 @@ public class Menu {
 				e.printStackTrace();
 			}
 
-//			System.out.println("\nPress Enter to continue...");
-//			input.nextLine();
-
 		} while (!selection.equals("6"));
 	}
 
