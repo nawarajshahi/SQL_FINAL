@@ -15,7 +15,7 @@ public class OrganizationsDao {
 	private VolunteersDao volunteerDao;
 	private final String GET_ORGS_QUERY = "SELECT * FROM organizations";
 	private final String GET_ORG_BY_ID_QUERY = "SELECT * FROM organizations WHERE org_id = ?";
-	private final String ADD_NEW_ORG_QUERY = "INSERT INTO organizations VALUES (?,?,?)";
+	private final String ADD_NEW_ORG_QUERY = "INSERT INTO organizations (name, address, phone) VALUES (?,?,?)";
 	private final String UPDATE_ORG_BY_ID_QUERY = "UPDATE organizations SET name = ?, address = ?, phone = ? WHERE org_id = ?";
 	private final String DELETE_ORG_BY_ID_QUERY = "DELETE FROM organizations WHERE org_id = ?";
 	
@@ -42,7 +42,6 @@ public class OrganizationsDao {
 		ResultSet rs = ps.executeQuery();
 		rs.next();
 		return populateOrganization(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4));
-		//Add address and phone
 	}
 	
 	public void createNewOrg(String name, String address, String phone) throws SQLException {

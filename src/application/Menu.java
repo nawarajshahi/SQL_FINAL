@@ -57,7 +57,7 @@ public class Menu {
 
 			selection = input.nextLine();
 			if (selection.equals("1")) {
-//				maintainOrgTable();					//Renee, your sub-menu CRUD operations should belong to this method
+				maintainOrgTable();
 			} else if (selection.equals("2")) {
 				maintainVolTable();
 			} else if (selection.equals("3")) {
@@ -79,7 +79,45 @@ public class Menu {
 		System.out.println("\nWhich table would you like to do maintenance to?");
 	}
 
+	/**==========================================================================================
+	 * All the methods below belong to Organization Table
+	 */
 
+	/**
+	 * maintainOrgTable() implementation
+	 */
+	private void maintainOrgTable() {
+		String selection = "";
+		do {
+			System.out.println("\n**********Organizations Table**********");
+			System.out.println("-----------------------------");
+			printOrgMenu();
+
+			selection = input.nextLine();
+			try {
+				if (selection.equals("1")) {
+					displayOrgs();
+				} else if (selection.equals("2")) {
+					displayOrgById();
+				} else if (selection.equals("3")) {
+					createOrg();
+				} else if (selection.equals("4")) {
+					updateOrg();
+				} else if (selection.equals("5")) {
+					deleteOrg();
+				}else if (!selection.equals("6")){
+					System.out.println("\nTry again, please select a valid option.\n");
+					maintainVolTable();
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		} while (!selection.equals("6"));
+	}
+	
+	
 	/**==========================================================================================
 	 * All the methods below belong to Volunteer Table
 	 */
@@ -302,10 +340,10 @@ public class Menu {
 			System.out.println("Enter organization ID: ");
 			int org_id = Integer.parseInt(input.nextLine());
 			Organizations organizations = orgDao.getOrgById(org_id);
-			System.out.println(organizations.getOrg_id() + ": " + organizations.getName());
-			for (Volunteers volunteers : organizations.getVolunteers()) {
-				System.out.println("\tOrganization ID: " + volunteers.getVol_id() + " - Name: " + volunteers.getFull_name() + " " + volunteers.getPhone());
-			}
+			System.out.println(organizations.getOrg_id() + ": " + organizations.getName() + ", " + organizations.getAddress() + " " + organizations.getPhone());
+//			for (Volunteers volunteers : organizations.getVolunteers()) {
+//				System.out.println("\tOrganization ID: " + volunteers.getVol_id() + " - Name: " + volunteers.getFull_name() + " " + volunteers.getPhone());
+//			}
 		}
 
 	private void createOrg () throws SQLException {
@@ -319,7 +357,7 @@ public class Menu {
 			orgDao.createNewOrg(name, address, phone);
 		}
 
-	private void updateOrganization () throws SQLException {
+	private void updateOrg () throws SQLException {
 			System.out.println("Enter ID of the organization to update: ");
 			int org_id = Integer.parseInt(input.nextLine());
 			System.out.println("Enter updated name: ");
@@ -332,7 +370,7 @@ public class Menu {
 			orgDao.updateOrgById(org_id, name, address, phone);
 		}
 
-	private void deleteOrganization () throws SQLException {
+	private void deleteOrg () throws SQLException {
 			System.out.print("Enter ID of the organization to delete: ");
 			int org_id = Integer.parseInt(input.nextLine());
 			orgDao.deleteOrgById(org_id);
