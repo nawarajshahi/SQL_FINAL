@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import dao.OrganizationsDao;
 import dao.VolunteersDao;
-import entity.Member;
 import entity.Organizations;
-import entity.Team;
 import entity.Volunteers;
 
 
@@ -17,6 +15,7 @@ public class Menu {
 	private OrganizationsDao orgDao = new OrganizationsDao();
 	private VolunteersDao volDao = new VolunteersDao();
 	private Organizations organization = new Organizations();
+	
 	
 	Scanner input = new Scanner(System.in);
 	
@@ -29,6 +28,7 @@ public class Menu {
 													"Create an organization",
 													"Update an organization",
 													"Delete an organization",
+													"Update an organization",
 													"Return to main menu");
 	
 	private List<String> volOptions = Arrays.asList("Dislay volunteers",
@@ -36,6 +36,7 @@ public class Menu {
 													"Create a volunteer",
 //													"Update an organization",
 													"Delete a volunteer",
+													"Update an organization",
 													"Return to main menu");
 	
 	private List<String> projOptions = Arrays.asList("Dislay projects",
@@ -92,19 +93,22 @@ public class Menu {
 					createAVolunteer();
 				}else if(selection.equals("4")) {
 					deleteAVolunteer();
-				} else{
-					System.out.println("\nTry again, please select a valid option.\n");
-					maintainVolTable();
-					
+				}else if(selection.equals("5")) {
+					updateAVolunteer();
 				}
+				
+				System.out.println("\nTry again, please select a valid option.\n");
+				maintainVolTable();
+					
+				
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
 			
-			System.out.println("Press Enter to continue...");
+			System.out.println("\nPress Enter to continue...");
 			input.nextLine();
 			
-		}while (!selection.equals("5"));
+		}while (!selection.equals("6"));
 	}
 	
 	
@@ -135,14 +139,42 @@ public class Menu {
 	
 	
 	//createAVolunteer() method implementation
-	private void createAVolunteer() {
+	private void createAVolunteer() throws SQLException {
 		System.out.println("Which organization would you like the volunteer to be added to?\nPlease enter organization_id:");
 		int org_id = Integer.parseInt(input.nextLine());
 		/*
 		 * write a code here that checks if the organization exists in the database. If it doesn't exist, 
 		 * ask the user if the would like to add the organization. If organization exists then they can 
 		 * simply add the new volunteer info into Volunteer database. 
+		 * 
 		 */
+		
+		Organizations organization = new Organizations();
+		organization = orgDao.getOrgById(org_id);
+		if(organization == null) {
+			char decision;
+			System.out.println(org_id + " does not exist in the database.\nWould you like to create the organization? (Y/N)");
+			decision = input.next().charAt(0);
+			if(decision == 'Y' || decision =='y') {
+				//create an organization
+				createOrg();
+			}
+			
+		}else {
+			
+			String full_name, phone;
+			int vol_id;
+			System.out.print("Enter volunteer id: ");
+			vol_id = Integer.parseInt(input.nextLine());
+			
+			System.out.print("Enter full name of the volunteer: ");
+			full_name = input.nextLine();
+			
+			System.out.print("Enter volunteer's phone number:");
+			phone = input.nextLine();
+			
+			volDao.createVolunteer(vol_id, org_id, full_name, phone);
+		}
 		
 //		if(org_id exists) {
 //			//create the volunteer for this organization
@@ -168,6 +200,26 @@ public class Menu {
 				System.out.println(vols.toString()); 
 			}
 		}
+		
+	}
+	
+	
+	//updateAVolunteer() implementation
+	private void updateAVolunteer() throws SQLException {
+		String full_name, phone;
+		int vol_id, org_id;
+		System.out.print("Enter volunteer id: ");
+		vol_id = Integer.parseInt(input.nextLine());
+		
+		System.out.print("Enter updated full name: ");
+		full_name = input.nextLine();
+		
+		System.out.print("Enter organization id: ");
+		org_id = Integer.parseInt(input.nextLine());
+		
+		System.out.print("Enter phone: ");
+		phone = input.nextLine();
+		volDao.updateVolunteer(vol_id, org_id, full_name, phone);
 		
 	}
 	
@@ -261,6 +313,10 @@ public class Menu {
 		int org_id = Integer.parseInt(input.nextLine());
 		orgDao.deleteOrgById(org_id);
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> dev
 	
 }
 
