@@ -34,9 +34,8 @@ public class Menu {
 	private List<String> volOptions = Arrays.asList("Dislay volunteers",
 													"Display a volunteer",
 													"Create a volunteer",
-//													"Update an organization",
 													"Delete a volunteer",
-													"Update an organization",
+													"Update a volunteer",
 													"Return to main menu");
 	
 	private List<String> projOptions = Arrays.asList("Dislay projects",
