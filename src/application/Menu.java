@@ -5,13 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import dao.OrganizationsDao;
+import dao.ProjectsDao;
 import dao.VolunteersDao;
 import entity.Organizations;
+import entity.Projects;
 import entity.Volunteers;
 
 
 public class Menu {
 
+	private ProjectsDao projectsDao = new ProjectsDao();
 	private OrganizationsDao orgDao = new OrganizationsDao();
 	private VolunteersDao volDao = new VolunteersDao();
 	private Organizations organization = new Organizations();
@@ -38,9 +41,8 @@ public class Menu {
 													"Update a volunteer",
 													"Return to main menu");
 	
-	private List<String> projOptions = Arrays.asList("Display projects",
+	private List<String> projOptions = Arrays.asList("Create a project",
 													"Display a project",
-													"Create a project",
 													"Update a project",
 													"Delete a project",
 													"Return to main menu");
@@ -61,7 +63,7 @@ public class Menu {
 			} else if (selection.equals("2")) {
 				maintainVolTable();
 			} else if (selection.equals("3")) {
-//				maintainProjTable();				//sean your sub-menu CRUD operations should belong to this method
+			maintainProjTable();				//sean your sub-menu CRUD operations should belong to this method
 			}
 
 			System.out.println("\nPlease press enter to continue the program...");
@@ -347,7 +349,7 @@ public class Menu {
 
 	/*
 	private ProjectsDao projectsDao = new ProjectsDao();
-    private Scanner scanner = new Scanner(System.in);
+    private input input = new input(System.in);
 
 
         //private TeamDao teamDao = new TeamDao();
@@ -366,7 +368,7 @@ public class Menu {
 
             do {
                 printMenu();
-                selection = scanner.nextLine();
+                selection = input.nextLine();
 
                 try {
                 if (selection.equals("1")) {
@@ -383,7 +385,7 @@ public class Menu {
                 }
 
                 System.out.println("Press enter to continue...");
-                scanner.nextLine();
+                input.nextLine();
             } while (!selection.equals("-1"));
         }
         private void printMenu() {
@@ -397,12 +399,12 @@ public class Menu {
 
 private void addNewProj() throws SQLException {
     System.out.print("Enter Organization ID: ");
-    int org_id = scanner.nextInt();
+    int org_id = input.nextInt();
     System.out.print("Enter Project Name:");
-    String proj_name = scanner.nextLine();
+    String proj_name = input.nextLine();
     System.out.print("Enter Project Description:");
-    String proj_desc = scanner.nextLine();
-    //String proj_desc = String.parseInt(scanner.nextLine());
+    String proj_desc = input.nextLine();
+    //String proj_desc = String.parseInt(input.nextLine());
     projectsDao.addNewProj(org_id, proj_name, proj_desc);}
 
 
@@ -435,7 +437,7 @@ private void updateaproject() throws SQLException {
 
 private void deleteaproject() throws SQLException {
 System.out.print("Enter project id to delete:");
-int id = Integer.parseInt(scanner.nextLine());
+int id = Integer.parseInt(input.nextLine());
 projectsDao.deleteProjectsByProjId(id);
 //public void deleteTeamById(int id) throws SQLException {
 //  memberDao.deleteMembersByteamId(id);
@@ -444,16 +446,131 @@ projectsDao.deleteProjectsByProjId(id);
 //  ps.executeUpdate();
 //private void deleteTeam() throws SQLException {
 //System.out.print("Enter team id to delete:");
-//int id = Integer.parseInt(scanner.nextLine());
+//int id = Integer.parseInt(input.nextLine());
 //teamDao.deleteTeamById(id);
 }
 
 }
 	 */
 
+	
+	private List <String> options = Arrays.asList(
+			"Add a new project", 
+			"Display a project", 
+			"Update a project",
+			"Delete a project");
+	
+	public void maintainProjTable() {
+		String selection = "";
+		
+		do {
+			System.out.println("\n**********Projects Table**********");
+			System.out.println("-----------------------------");
+			printProjMenu();
+			selection = input.nextLine();
+			
+			try {
+				if (selection.equals("1")) {
+					addNewProj();
+				} else if (selection.equals("2")) {
+					displayaproject();
+				}else if (selection.equals("3")) {
+					updateaproject();
+				}else if (selection.equals("4")) {
+					deleteaproject();
+				}
+				else if (!selection.equals("5")){
+					System.out.println("\nTry again, please select a valid option.\n");
+					maintainProjTable();
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+				}
+				
+			
+
+			
+			System.out.println("Press enter to continue...");
+			input.nextLine();
+		} while (!selection.equals("5"));
+	}
+
+////	private void printMenu() {
+//		System.out.println("Select an Option:\n-------------------");
+//		for (int i = 0; i < options.size(); i++) {
+//			System.out.println(i + 1 + ") " + options.get(i));
+//		
+//		}
+//		System.out.println("Enter Option: ");
+//	}
+
+//	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private void addNewProj() throws SQLException {
+		System.out.println("Enter Organization ID: ");
+		int org_id = input.nextInt();
+		System.out.println("Enter Project Name:");
+		String proj_name = input.next();
+		System.out.println("Enter Project Description:");
+		String proj_desc = input.next();
+		//String proj_desc = String.parseInt(input.nextLine());
+		projectsDao.addNewProj(org_id, proj_name, proj_desc);}
+
+			
+		
+	private void displayaproject() throws SQLException {
+
+		List<Projects> projects = projectsDao.getProjs();
+
+		System.out.println(String.format("%-20s %12s %16s %24s", "Project ID", "Org ID", "Project Name", "Project Description"));
+		for(Projects p: projects)
+		{
+			System.out.println(String.format("%-20s %12s %16s %24s",p.getProj_id(), p.getOrg_id(), p.getProj_name(), p.getProj_desc()));
+		}
+	}
 
 
-}
+	//private void displayTeams() throws SQLException {
+	//List<Team> teams = teamDao.getTeams();
+	//for (Team team : teams)
+//		System.out.println(team.getTeamId() + ": " + team.getName());
+	//
+	//}
+
+	private void updateaproject() throws SQLException {
+		projectsDao.updateProject();
+
+	}
+
+
+
+
+	private void deleteaproject() throws SQLException {
+		System.out.println("Enter project id to delete:");
+		int id = Integer.parseInt(input.nextLine());
+
+		projectsDao.deleteProjectsByProjId(id);
+
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
 
 
 
