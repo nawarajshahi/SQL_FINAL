@@ -16,11 +16,9 @@ public class VolunteersDao {
 	private final String CREATE_NEW_VOLUNTEER_QUERY = "INSERT INTO volunteers(vol_id, org_id, full_name, phone) VALUES (?, ?, ?, ?)";
 	private final String DELETE_VOLUNTEER_BY_ID_QUERY = "DELETE FROM volunteers WHERE vol_id = ?";
 	private final String DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY = "DELETE FROM members WHERE team_id = ?"; //Renee
-<<<<<<< HEAD
-=======
+
 	private final String UPDATE_VOLUNTEER_BY_ID_QUERY = "UPDATE volunteers SET org_id=?, full_name=?, phone=? WHERE vol_id=?";
->>>>>>> dev
-	
+
 			
 	private Connection connection;
 	
@@ -92,9 +90,8 @@ public class VolunteersDao {
 		ps.setInt(1, org_id);
 		ps.executeUpdate();
 	}
-<<<<<<< HEAD
-=======
-	
+
+
 	//updateVolunteer() implementation
 	public void updateVolunteer(int vol_id, int org_id, String full_name, String phone) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(UPDATE_VOLUNTEER_BY_ID_QUERY);
@@ -104,7 +101,7 @@ public class VolunteersDao {
 		ps.setInt(4, vol_id);
 		ps.executeUpdate();
 	}
->>>>>>> dev
+
 	
 	
 }

@@ -1,4 +1,4 @@
-package application;
+package src.application;
 
 import java.sql.SQLException;
 import java.util.Arrays;
