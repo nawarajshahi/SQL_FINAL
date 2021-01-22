@@ -22,26 +22,26 @@ public class Menu {
 	private List<String> tableOptions = Arrays.asList("Organizations",
 													"Volunteers",
 													"Projects");
-	
-	private List<String> orgOptions = Arrays.asList("Dislay organizations",
+
+
+	private List<String> orgOptions = Arrays.asList("Display organizations",
 													"Display an organization",
 													"Create an organization",
 													"Update an organization",
 													"Delete an organization",
-													"Update an organization",
 													"Return to main menu");
 	
-	private List<String> volOptions = Arrays.asList("Dislay volunteers",
+	private List<String> volOptions = Arrays.asList("Display volunteers",
 													"Display a volunteer",
 													"Create a volunteer",
 													"Delete a volunteer",
 													"Update a volunteer",
 													"Return to main menu");
 	
-	private List<String> projOptions = Arrays.asList("Dislay projects",
+	private List<String> projOptions = Arrays.asList("Display projects",
 													"Display a project",
 													"Create a project",
-//													"Update an organization",
+													"Update a project",
 													"Delete a project",
 													"Return to main menu");
 
@@ -106,11 +106,12 @@ public class Menu {
 					deleteAVolunteer();
 				} else if (selection.equals("5")) {
 					updateAVolunteer();
+				}else if (selection.equals("6")) {
+					start();
+				}else{
+					System.out.println("\nTry again, please select a valid option.\n");
+					maintainVolTable();
 				}
-
-				System.out.println("\nTry again, please select a valid option.\n");
-				maintainVolTable();
-
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -119,8 +120,9 @@ public class Menu {
 			System.out.println("\nPress Enter to continue...");
 			input.nextLine();
 
-		} while (!selection.equals("6"));
+		} while (!selection.equals("-1"));
 	}
+
 
 
 	/**
@@ -142,6 +144,8 @@ public class Menu {
 
 	}
 
+
+
 	/**
 	 * displayVolunteers() implementation
 	 *
@@ -151,10 +155,15 @@ public class Menu {
 		System.out.println("Printing volunteers.....");
 		List<Volunteers> volunteers = volDao.getVolunteers();
 		for (Volunteers vols : volunteers) {
-			System.out.println(vols.toString()); //toString() method is implemented in Volunteers Class
+			System.out.println(String.format("Volunteer id: %d"
+							+ " \tOrganization id: %d "
+							+ " \tVolunteer name: %s"
+							+ "\t\t\tVolunteer phone: %s",
+							vols.getVol_id(), vols.getOrg_id(),
+							vols.getFull_name(), vols.getPhone()));
 		}
-
 	}
+
 
 
 	/**
@@ -196,9 +205,11 @@ public class Menu {
 	}
 
 
-
-		//deleteAVolunteer() method implementation
-		private void deleteAVolunteer () throws SQLException {
+	/**
+	 * deleteAVolunteer() method implementation
+	 * @throws SQLException
+	 */
+	private void deleteAVolunteer () throws SQLException {
 			System.out.println("Which volunteer would you like to delete? \nPlease enter volunteer id: ");
 			int vol_id = Integer.parseInt(input.nextLine());
 			int executeVal = volDao.deleteVolunteerById(vol_id);
@@ -216,8 +227,11 @@ public class Menu {
 		}
 
 
-		//updateAVolunteer() implementation
-		private void updateAVolunteer () throws SQLException {
+	/**
+	 * updateAVolunteer() method implementation
+	 * @throws SQLException
+	 */
+	private void updateAVolunteer () throws SQLException {
 			String full_name, phone;
 			int vol_id, org_id;
 			System.out.print("Enter volunteer id: ");
@@ -237,29 +251,38 @@ public class Menu {
 
 
 
-		/**==========================================================================================
-		 * All the menu options method implementation below
-		 */
+	/**==========================================================================================
+	 * All the menu options method implementation below
+	 */
 
 
-		//printOrgMenu() implementation
-		private void printOrgMenu () {
+	/**
+	 * printOrgMenu() implementation
+ 	 */
+	private void printOrgMenu () {
 			printMenuPattern(orgOptions);
 		}
 
-		//printVolMenu() implementation
-		private void printVolMenu () {
+	/**
+	 * printVolMenu() implementation
+	 */
+	private void printVolMenu () {
 			printMenuPattern(volOptions);
 		}
 
-		//printProjMenu() implementation
-		private void printProjMenu () {
+	/**
+	 * printProjMenu() implementation
+	 */
+	private void printProjMenu () {
 			printMenuPattern(projOptions);
 		}
 
 
-		//separate printMenuPattern() method for code re-usability of printing different menu options
-		private void printMenuPattern (List < String > menu) {
+	/**
+	 * separate printMenuPattern() method for code re-usability of printing different menu options
+	 * @param menu List of Menu options
+	 */
+	private void printMenuPattern (List < String > menu) {
 
 			for (int i = 0; i < menu.size(); i++) {
 				System.out.println(i + 1 + ") " + menu.get(i));
@@ -268,19 +291,19 @@ public class Menu {
 		}
 
 
-		/**
-		 * =============================================================================================
-		 * All the org menu methods implemented
-		 */
+	/**
+	 * =============================================================================================
+	 * All the organizations menu methods implemented
+	 */
 
-		private void displayOrgs () throws SQLException {
+	private void displayOrgs () throws SQLException {
 			List<Organizations> organizations = orgDao.getOrgs();
 			for (Organizations organization : organizations) {
 				System.out.println(organization.getOrg_id() + ": " + organization.getName());
 			}
 		}
 
-		private void displayOrgById () throws SQLException {
+	private void displayOrgById () throws SQLException {
 			System.out.println("Enter organization ID: ");
 			int org_id = Integer.parseInt(input.nextLine());
 			Organizations organizations = orgDao.getOrgById(org_id);
@@ -290,7 +313,7 @@ public class Menu {
 			}
 		}
 
-		private void createOrg () throws SQLException {
+	private void createOrg () throws SQLException {
 			System.out.print("Enter name of new organization: ");
 			String name = input.nextLine();
 			System.out.print("Enter new address: ");
@@ -301,7 +324,7 @@ public class Menu {
 			orgDao.createNewOrg(name, address, phone);
 		}
 
-		private void updateOrganization () throws SQLException {
+	private void updateOrganization () throws SQLException {
 			System.out.println("Enter ID of the organization to update: ");
 			int org_id = Integer.parseInt(input.nextLine());
 			System.out.println("Enter updated name: ");
@@ -314,7 +337,7 @@ public class Menu {
 			orgDao.updateOrgById(org_id, name, address, phone);
 		}
 
-		private void deleteOrganization () throws SQLException {
+	private void deleteOrganization () throws SQLException {
 			System.out.print("Enter ID of the organization to delete: ");
 			int org_id = Integer.parseInt(input.nextLine());
 			orgDao.deleteOrgById(org_id);
