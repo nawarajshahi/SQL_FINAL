@@ -340,6 +340,119 @@ public class Menu {
 
 
 
+	/**
+	 * Sean below is is your code that you had written so far. Please modify as needed to function
+	 * within the menu
+	 */
+
+	/*
+	private ProjectsDao projectsDao = new ProjectsDao();
+    private Scanner scanner = new Scanner(System.in);
+
+
+        //private TeamDao teamDao = new TeamDao();
+        //private MemberDao memberDao = new MemberDao();
+
+
+
+        private List <String> options = Arrays.asList(
+                "Add a new project",
+                "Display a project",
+                "Update a project",
+                "Delete a project");
+
+        public void start() {
+            String selection = "";
+
+            do {
+                printMenu();
+                selection = scanner.nextLine();
+
+                try {
+                if (selection.equals("1")) {
+                    addNewProj();
+                } else if (selection.equals("2")) {
+                    displayaproject();
+                }else if (selection.equals("3")) {
+                    updateateam();
+                }else if (selection.equals("4")) {
+                    deleteaproject();
+                }
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println("Press enter to continue...");
+                scanner.nextLine();
+            } while (!selection.equals("-1"));
+        }
+        private void printMenu() {
+            System.out.println("Select an Option:\n-------------------");
+            for (int i = 0; i < options.size(); i++) {
+                System.out.println(i + 1 + ") " + options.get(i));
+
+            }
+        }
+
+
+private void addNewProj() throws SQLException {
+    System.out.print("Enter Organization ID: ");
+    int org_id = scanner.nextInt();
+    System.out.print("Enter Project Name:");
+    String proj_name = scanner.nextLine();
+    System.out.print("Enter Project Description:");
+    String proj_desc = scanner.nextLine();
+    //String proj_desc = String.parseInt(scanner.nextLine());
+    projectsDao.addNewProj(org_id, proj_name, proj_desc);}
+
+
+private void displayaproject() throws SQLException {
+List<Project> projects = projectsDao.getProjs();
+for (Project project : projects)
+    System.out.println(projectsDao.getProjById() + ": " + project.getProj_name());
+}
+//private void displayTeams() throws SQLException {
+//  List<Team> teams = teamDao.getTeams();
+//  for (Team team : teams)
+//      System.out.println(team.getTeamId() + ": " + team.getName());
+//
+//}
+
+private void updateaproject() throws SQLException {
+
+    try {
+        rs.updateInt( "ID", newID );
+        rs.updateString( "last_Name", last );
+        rs.updateString( "Job_Title", job );
+        rs.updateRow( );
+        JOptionPane.showMessageDialog(Project.this, "Updated");
+        }
+        catch (SQLException err) {
+        System.out.println(err.getMessage() );
+        }
+
+}
+
+private void deleteaproject() throws SQLException {
+System.out.print("Enter project id to delete:");
+int id = Integer.parseInt(scanner.nextLine());
+projectsDao.deleteProjectsByProjId(id);
+//public void deleteTeamById(int id) throws SQLException {
+//  memberDao.deleteMembersByteamId(id);
+//  PreparedStatement ps = connection.prepareStatement(DELETE_TEAM_BY_ID_QUERY);
+//  ps.setInt(1, id);
+//  ps.executeUpdate();
+//private void deleteTeam() throws SQLException {
+//System.out.print("Enter team id to delete:");
+//int id = Integer.parseInt(scanner.nextLine());
+//teamDao.deleteTeamById(id);
+}
+
+}
+	 */
+
+
+
 }
 
 
