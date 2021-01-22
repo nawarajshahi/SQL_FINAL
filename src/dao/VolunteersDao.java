@@ -18,7 +18,7 @@ public class VolunteersDao {
 	private final String DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY = "DELETE FROM members WHERE team_id = ?"; //Renee
 
 	private final String UPDATE_VOLUNTEER_BY_ID_QUERY = "UPDATE volunteers SET org_id=?, full_name=?, phone=? WHERE vol_id=?";
-
+>>>>>>> dev
 	
 			
 	private Connection connection;
@@ -39,12 +39,17 @@ public class VolunteersDao {
 		return volunteers;
 		
 	}
-	
-	
-	//implementation for getAVolunteerById() method 
-	public List<Volunteers> getAVolunteerById(int id) throws SQLException {
+
+
+	/**
+	 * implementation for getAVolunteerById() method
+	 * @param vol_id 	volunteer id in the database
+	 * @return		volunteer with provided vol_id
+	 * @throws SQLException
+	 */
+	public List<Volunteers> getAVolunteerById(int vol_id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_VOLUNTEER_BY_ID);
-		ps.setInt(1, id);
+		ps.setInt(1, vol_id);
 		
 		ResultSet rs = ps.executeQuery();
 		List<Volunteers> volunteer = new ArrayList<Volunteers>();
@@ -53,10 +58,17 @@ public class VolunteersDao {
 		}
 		
 		return volunteer;
-		
 	}
-	
-	//addNewVolunteer() method implementation
+
+
+	/**
+	 * addNewVolunteer() method implementation
+	 * @param vol_id 	volunteer id in the database
+	 * @param org_id 	the organization id to which the volunteer is part of
+	 * @param full_name 	full name of the volunteer
+	 * @param phone 	phone of the volunteer
+	 * @throws SQLException
+	 */
 	public void addNewVolunteer(int vol_id, int org_id, String full_name, String phone) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_VOLUNTEER_QUERY);
 		ps.setInt(1, vol_id);
@@ -65,9 +77,16 @@ public class VolunteersDao {
 		ps.setString(4, phone);
 		ps.executeUpdate();
 	}
-	
-	
-	//createVolunteer() method implementation
+
+
+	/**
+	 * createVolunteer() method implementation
+	 * @param vol_id 	volunteer id in the database
+	 * @param org_id 	the organization id to which the volunteer is part of
+	 * @param full_name 	full name of the volunteer
+	 * @param phone 	phone of the volunteer
+	 * @throws SQLException
+	 */
 	public void createVolunteer(int vol_id, int org_id, String full_name, String phone) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_VOLUNTEER_QUERY);
 		ps.setInt(1, vol_id);
@@ -76,8 +95,15 @@ public class VolunteersDao {
 		ps.setString(4, phone);
 		ps.executeUpdate();
 	}
-	
-	//deleteVolunteerById() method implementation
+
+
+	/**
+	 * deleteVolunteerById() method implementation
+	 * @param vol_id	volunteer id in the database
+	 * @return			an int count of number of rows that were deleted
+	 * 					or 0 for no deletion
+	 * @throws SQLException
+	 */
 	public int deleteVolunteerById(int vol_id) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(DELETE_VOLUNTEER_BY_ID_QUERY);
 		ps.setInt(1, vol_id);
@@ -92,8 +118,15 @@ public class VolunteersDao {
 		ps.executeUpdate();
 	}
 
-	
-	//updateVolunteer() implementation
+
+	/**
+	 * updateVolunteer() implementation
+	 * @param vol_id 	volunteer id in the database
+	 * @param org_id 	the organization id to which the volunteer is part of
+	 * @param full_name 	full name of the volunteer
+	 * @param phone 	phone of the volunteer
+	 * @throws SQLException
+	 */
 	public void updateVolunteer(int vol_id, int org_id, String full_name, String phone) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(UPDATE_VOLUNTEER_BY_ID_QUERY);
 		ps.setInt(1, org_id);
