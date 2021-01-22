@@ -106,9 +106,7 @@ public class Menu {
 					deleteAVolunteer();
 				} else if (selection.equals("5")) {
 					updateAVolunteer();
-				}else if (selection.equals("6")) {
-					start();
-				}else{
+				}else if (!selection.equals("6")){
 					System.out.println("\nTry again, please select a valid option.\n");
 					maintainVolTable();
 				}
@@ -117,10 +115,10 @@ public class Menu {
 				e.printStackTrace();
 			}
 
-			System.out.println("\nPress Enter to continue...");
-			input.nextLine();
+//			System.out.println("\nPress Enter to continue...");
+//			input.nextLine();
 
-		} while (!selection.equals("-1"));
+		} while (!selection.equals("6"));
 	}
 
 
