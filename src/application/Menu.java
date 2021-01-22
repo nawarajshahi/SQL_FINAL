@@ -20,7 +20,6 @@ public class Menu {
 	Scanner input = new Scanner(System.in);
 
 	private List<String> tableOptions = Arrays.asList("Organizations",
-<<<<<<< HEAD
 													"Volunteers",
 													"Projects");
 	
@@ -45,33 +44,10 @@ public class Menu {
 //													"Update an organization",
 													"Delete a project",
 													"Return to main menu");
-	
-=======
-			"Volunteers",
-			"Projects");
 
-	private List<String> orgOptions = Arrays.asList("Display organizations",
-			"Display an organization",
-			"Create an organization",
-			"Update an organization",
-			"Delete an organization",
-			"Return to main menu");
 
-	private List<String> volOptions = Arrays.asList("Display volunteers",
-			"Display a volunteer",
-			"Create a volunteer",
-			"Delete a volunteer",
-			"Update an organization",
-			"Return to main menu");
 
-	private List<String> projOptions = Arrays.asList("Display projects",
-			"Display a project",
-			"Create a project",
-			"Update a project",
-			"Delete a project",
-			"Return to main menu");
 
->>>>>>> dev
 	public void start() {
 		String selection = "";
 		do {
