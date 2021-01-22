@@ -57,11 +57,11 @@ public class Menu {
 
 			selection = input.nextLine();
 			if (selection.equals("1")) {
-//				maintainOrgTable();
+//				maintainOrgTable();					//Renee, your sub-menu CRUD operations should belong to this method
 			} else if (selection.equals("2")) {
 				maintainVolTable();
 			} else if (selection.equals("3")) {
-//				maintainProjTable();
+//				maintainProjTable();				//sean your sub-menu CRUD operations should belong to this method
 			}
 
 			System.out.println("\nPlease press enter to continue the program...");
