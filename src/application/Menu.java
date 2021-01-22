@@ -313,10 +313,7 @@ public class Menu {
 		int org_id = Integer.parseInt(input.nextLine());
 		orgDao.deleteOrgById(org_id);
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> dev
+
 	
 }
 
