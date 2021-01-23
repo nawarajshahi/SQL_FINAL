@@ -16,7 +16,7 @@ public class VolunteersDao {
 
 	private final String GET_VOLUNTEERS_QUERY = "SELECT * FROM volunteers LIMIT 20";
 	private final String GET_VOLUNTEER_BY_ID_QUERY = "SELECT * FROM volunteers WHERE vol_id = ?";
-	private final String CREATE_NEW_VOLUNTEER_QUERY = "INSERT INTO volunteers(vol_id, org_id, full_name, phone) VALUES (?, ?, ?, ?)";
+	private final String CREATE_NEW_VOLUNTEER_QUERY = "INSERT INTO volunteers(org_id, full_name, phone) VALUES (?, ?, ?)";
 	private final String DELETE_VOLUNTEER_BY_ID_QUERY = "DELETE FROM volunteers WHERE vol_id = ?";
 	private final String DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY = "DELETE FROM volunteers WHERE org_id = ?"; //Renee
 	private final String UPDATE_VOLUNTEER_BY_ID_QUERY = "UPDATE volunteers SET org_id=?, full_name=?, phone=? WHERE vol_id=?";
@@ -68,19 +68,17 @@ public class VolunteersDao {
 
 	/**
 	 * createVolunteer() method implementation
-	 * @param vol_id 	volunteer id in the database
 	 * @param org_id 	the organization id to which the volunteer is part of
 	 * @param full_name 	full name of the volunteer
 	 * @param phone 	phone of the volunteer
 	 * @throws SQLException
 	 */
-	public void createVolunteer(int vol_id, int org_id, String full_name, String phone) throws SQLException {
+	public int createVolunteer(int org_id, String full_name, String phone) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(CREATE_NEW_VOLUNTEER_QUERY);
-		ps.setInt(1, vol_id);
-		ps.setInt(2, org_id);
-		ps.setString(3, full_name);
-		ps.setString(4, phone);
-		ps.executeUpdate();
+		ps.setInt(1, org_id);
+		ps.setString(2, full_name);
+		ps.setString(3, phone);
+		return ps.executeUpdate();
 	}
 
 
@@ -113,13 +111,13 @@ public class VolunteersDao {
 	 * @param phone 	phone of the volunteer
 	 * @throws SQLException
 	 */
-	public void updateVolunteer(int vol_id, int org_id, String full_name, String phone) throws SQLException {
+	public int updateVolunteer(int vol_id, int org_id, String full_name, String phone) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(UPDATE_VOLUNTEER_BY_ID_QUERY);
 		ps.setInt(1, org_id);
 		ps.setString(2, full_name);
 		ps.setString(3, phone);
 		ps.setInt(4, vol_id);
-		ps.executeUpdate();
+		return ps.executeUpdate();
 	}
 	
 }
