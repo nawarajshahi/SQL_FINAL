@@ -232,11 +232,12 @@ public class Menu {
     private void displayVolunteers() throws SQLException {
         System.out.println("Printing volunteers.....");
         List<Volunteers> volunteers = volDao.getVolunteers();
+        System.out.println("Volunteer id \tOrganization id \tVolunteer Name\t\t\tVolunteer Phone");
         for (Volunteers vols : volunteers) {
-            System.out.println(String.format("Volunteer id: %d"
-                            + " \tOrganization id: %d "
-                            + " \tVolunteer name: %s"
-                            + "\t\t\tVolunteer phone: %s",
+            System.out.println(String.format("\t%d"
+                            + "\t\t\t\t\t%d "
+                            + "\t\t\t%s "
+                            + " \t\t\t%s",
                     vols.getVol_id(), vols.getOrg_id(),
                     vols.getFull_name(), vols.getPhone()));
         }
