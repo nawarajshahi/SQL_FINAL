@@ -20,35 +20,36 @@ public class Menu {
     private VolunteersDao volDao = new VolunteersDao();
     private Organizations organization = new Organizations();
 
-
     Scanner input = new Scanner(System.in);
 
     private List<String> tableOptions = Arrays.asList("Organizations",
-            "Volunteers",
-            "Projects");
-
+                                        "Volunteers",
+                                        "Projects");
 
     private List<String> orgOptions = Arrays.asList("Display organizations",
-            "Display an organization",
-            "Create an organization",
-            "Update an organization",
-            "Delete an organization",
-            "Return to main menu");
+                                        "Display an organization",
+                                        "Create an organization",
+                                        "Update an organization",
+                                        "Delete an organization",
+                                        "Return to main menu");
 
     private List<String> volOptions = Arrays.asList("Display volunteers",
-            "Display a volunteer",
-            "Create a volunteer",
-            "Delete a volunteer",
-            "Update a volunteer",
-            "Return to main menu");
+                                        "Display a volunteer",
+                                        "Create a volunteer",
+                                        "Delete a volunteer",
+                                        "Update a volunteer",
+                                        "Return to main menu");
 
     private List<String> projOptions = Arrays.asList("Create a project",
-            "Display projects",
-            "Update a project",
-            "Delete a project",
-            "Return to main menu");
+                                        "Display projects",
+                                        "Update a project",
+                                        "Delete a project",
+                                        "Return to main menu");
 
-
+    /**start()
+     * this method handles the main database and tables to which CRUD
+     * operation can be performed
+     */
     public void start() {
         String selection = "";
         do {
@@ -73,7 +74,8 @@ public class Menu {
     }
 
     /**
-     * printMainMenu() method implementation
+     * printMainMenu() method simply prints out the message to the console
+     *regarding which tables the user wants to perform CRUD operations
      */
 
     private void printMainMenu() {
@@ -85,7 +87,12 @@ public class Menu {
 
     /**
      * ==========================================================================================
-     * All the methods below belong to Organization Table
+     * Menu and Methods for Organizations Table
+     * Authored by Renee Dubuc
+     */
+
+    /**maintainOrgTable()
+     *
      */
     private void maintainOrgTable() {
         String selection = "";
@@ -146,13 +153,30 @@ public class Menu {
         orgDao.deleteOrgById(org_id);
     }
 
+    private void displayOrgs() throws SQLException {
+        List<Organizations> organizations = orgDao.getOrgs();
+        for (Organizations organization : organizations) {
+            System.out.println(organization.getOrg_id() + ": " + organization.getName());
+        }
+    }
+
+
+    private void displayOrgById() throws SQLException {
+        System.out.println("Enter organization ID: ");
+        int org_id = Integer.parseInt(input.nextLine());
+        Organizations organizations = orgDao.getOrgById(org_id);
+        System.out.println(organizations.getOrg_id() + ": " + organizations.getName() +
+                ", " + organizations.getAddress() + " " + organizations.getPhone());
+    }
+
 
     /**==========================================================================================
-     * All the methods below belong to Volunteer Table
+     * Menu and Methods for Volunteers Table
+     * Authored by Nawaraj Shahi
      */
 
     /**
-     * maintainVolTable() implementation
+     * maintainVolTable() maintains the Volunteers table with its CRUD operations.
      */
     private void maintainVolTable() {
         String selection = "";
@@ -188,7 +212,6 @@ public class Menu {
 
     /**
      * displayAVolunteer() method implementation
-     *
      * @throws SQLException
      */
     private void displayAVolunteer() throws SQLException {
@@ -199,14 +222,11 @@ public class Menu {
         for (Volunteers vols : volunteer) {
             System.out.println(vols.toString()); //toString() method is implemented in Volunteers Class
         }
-
-
     }
 
 
     /**
      * displayVolunteers() implementation
-     *
      * @throws SQLException
      */
     private void displayVolunteers() throws SQLException {
@@ -225,7 +245,6 @@ public class Menu {
 
     /**
      * createAVolunteer() method implementation
-     *
      * @throws SQLException
      */
     private void createAVolunteer() throws SQLException {
@@ -263,7 +282,6 @@ public class Menu {
 
     /**
      * deleteAVolunteer() method implementation
-     *
      * @throws SQLException
      */
     private void deleteAVolunteer() throws SQLException {
@@ -286,7 +304,6 @@ public class Menu {
 
     /**
      * updateAVolunteer() method implementation
-     *
      * @throws SQLException
      */
     private void updateAVolunteer() throws SQLException {
@@ -309,72 +326,8 @@ public class Menu {
 
 
     /**==========================================================================================
-     * All the menu options method implementation below
-     */
-
-
-    /**
-     * printOrgMenu() implementation
-     */
-    private void printOrgMenu() {
-        printMenuPattern(orgOptions);
-    }
-
-    /**
-     * printVolMenu() implementation
-     */
-    private void printVolMenu() {
-        printMenuPattern(volOptions);
-    }
-
-    /**
-     * printProjMenu() implementation
-     */
-    private void printProjMenu() {
-        printMenuPattern(projOptions);
-    }
-
-
-    /**
-     * separate printMenuPattern() method for code re-usability of printing different menu options
-     *
-     * @param menu List of Menu options
-     */
-    private void printMenuPattern(List<String> menu) {
-
-        for (int i = 0; i < menu.size(); i++) {
-            System.out.println(i + 1 + ") " + menu.get(i));
-        }
-        System.out.println("\nWhich maintenance would you like to perform?");
-    }
-
-
-    /**
-     * =============================================================================================
-     * Renee's Organizations menu implementations below
-     */
-
-    private void displayOrgs() throws SQLException {
-        List<Organizations> organizations = orgDao.getOrgs();
-        for (Organizations organization : organizations) {
-            System.out.println(organization.getOrg_id() + ": " + organization.getName());
-        }
-    }
-
-
-    private void displayOrgById() throws SQLException {
-        System.out.println("Enter organization ID: ");
-        int org_id = Integer.parseInt(input.nextLine());
-        Organizations organizations = orgDao.getOrgById(org_id);
-        System.out.println(organizations.getOrg_id() + ": " + organizations.getName() + ", " + organizations.getAddress() + " " + organizations.getPhone());
-//			for (Volunteers volunteers : organizations.getVolunteers()) {
-//				System.out.println("\tOrganization ID: " + volunteers.getVol_id() + " - Name: " + volunteers.getFull_name() + " " + volunteers.getPhone());
-//			}
-    }
-
-
-    /**
-     * sean's menu implementation
+     * Menu and Methods for Projects Table
+     * Authored by Sean Flaherty
      */
 
     public void maintainProjTable() {
@@ -444,6 +397,47 @@ public class Menu {
         projectsDao.deleteProjectsByProjId(id);
 
     }
+
+
+    /**==========================================================================================
+     * Sub-Menu functions and helping functions for all the tables in database
+     */
+
+
+    /**
+     * printOrgMenu() implementation
+     */
+    private void printOrgMenu() {
+        printMenuPattern(orgOptions);
+    }
+
+    /**
+     * printVolMenu() implementation
+     */
+    private void printVolMenu() {
+        printMenuPattern(volOptions);
+    }
+
+    /**
+     * printProjMenu() implementation
+     */
+    private void printProjMenu() {
+        printMenuPattern(projOptions);
+    }
+
+
+    /**
+     * separate printMenuPattern() method for code re-usability of printing different menu options
+     *
+     * @param menu List of Menu options
+     */
+    private void printMenuPattern(List<String> menu) {
+        for (int i = 0; i < menu.size(); i++) {
+            System.out.println(i + 1 + ") " + menu.get(i));
+        }
+        System.out.println("\nWhich maintenance would you like to perform?");
+    }
+
 }
 
 

@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-
 import entity.Projects;
 
-
+/**
+ * Authored by Sean Flaherty
+ */
 public class ProjectsDao {
 	
 	private Scanner keyboard = new Scanner(System.in);
@@ -209,9 +209,6 @@ public class ProjectsDao {
 		
 	}
 	
-		
-		
-
 
 }
 	

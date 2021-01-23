@@ -1,5 +1,10 @@
 package entity;
 
+
+/**
+ * Authored by Nawaraj Shahi
+ */
+
 public class Volunteers {
 	private int vol_id;
 	private int org_id;
