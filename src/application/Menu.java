@@ -43,7 +43,7 @@ public class Menu {
             "Return to main menu");
 
     private List<String> projOptions = Arrays.asList("Create a project",
-            "Display a project",
+            "Display projects",
             "Update a project",
             "Delete a project",
             "Return to main menu");
@@ -56,14 +56,14 @@ public class Menu {
             System.out.println("-----------------------------");
             printMainMenu();
 
-			selection = input.nextLine();
-			if (selection.equals("1")) {
-				maintainOrgTable();
-			} else if (selection.equals("2")) {
-				maintainVolTable();
-			} else if (selection.equals("3")) {
-//				maintainProjTable();				//sean your sub-menu CRUD operations should belong to this method
-			}
+            selection = input.nextLine();
+            if (selection.equals("1")) {
+                maintainOrgTable();
+            } else if (selection.equals("2")) {
+                maintainVolTable();
+            } else if (selection.equals("3")) {
+				maintainProjTable();
+            }
 
             System.out.println("\nPlease press enter to continue the program...");
             input.nextLine();
@@ -76,13 +76,76 @@ public class Menu {
      * printMainMenu() method implementation
      */
 
-	/**==========================================================================================
-	 * All the methods below belong to Organization Table
-	 */
+    private void printMainMenu() {
+        for (int i = 0; i < tableOptions.size(); i++) {
+            System.out.println(i + 1 + ") " + tableOptions.get(i));
+        }
+        System.out.println("\nWhich table would you like to do maintenance to?");
+    }
 
-	/**==========================================================================================
-	 * All the methods below belong to Volunteer Table
-	 */
+    /**
+     * ==========================================================================================
+     * All the methods below belong to Organization Table
+     */
+    private void maintainOrgTable() {
+        String selection = "";
+        do {
+            System.out.println("\n**********Organizations Table**********");
+            System.out.println("-----------------------------");
+            printOrgMenu();
+            selection = input.nextLine();
+            try {
+                if (selection.equals("1")) {
+                    displayOrgs();
+                } else if (selection.equals("2")) {
+                    displayOrgById();
+                } else if (selection.equals("3")) {
+                    createOrg();
+                } else if (selection.equals("4")) {
+                    updateOrg();
+                } else if (selection.equals("5")) {
+                    deleteOrg();
+                } else if (!selection.equals("6")) {
+                    System.out.println("\nTry again, please select a valid option.\n");
+                    maintainVolTable();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } while (!selection.equals("6"));
+    }
+
+
+    private void createOrg() throws SQLException {
+        System.out.print("Enter name of new organization: ");
+        String name = input.nextLine();
+        System.out.print("Enter new address: ");
+        String address = input.nextLine();
+        System.out.print("Enter new phone number: ");
+        String phone = input.nextLine();
+        orgDao.createNewOrg(name, address, phone);
+    }
+
+
+    private void updateOrg () throws SQLException {
+        System.out.println("Enter ID of the organization to update: ");
+        int org_id = Integer.parseInt(input.nextLine());
+        System.out.println("Enter updated name: ");
+        String name = input.nextLine();
+        System.out.println("Enter updated address: ");
+        String address = input.nextLine();
+        System.out.println("Enter updated phone number: ");
+        String phone = input.nextLine();
+
+        orgDao.updateOrgById(org_id, name, address, phone);
+    }
+
+    private void deleteOrg() throws SQLException {
+        System.out.print("Enter ID of the organization to delete: ");
+        int org_id = Integer.parseInt(input.nextLine());
+        orgDao.deleteOrgById(org_id);
+    }
+
 
     /**==========================================================================================
      * All the methods below belong to Volunteer Table
@@ -298,60 +361,17 @@ public class Menu {
         }
     }
 
+
     private void displayOrgById() throws SQLException {
         System.out.println("Enter organization ID: ");
         int org_id = Integer.parseInt(input.nextLine());
         Organizations organizations = orgDao.getOrgById(org_id);
-        System.out.println(organizations.getOrg_id() + ": " + organizations.getName());
-        for (Volunteers volunteers : organizations.getVolunteers()) {
-            System.out.println("\tOrganization ID: " + volunteers.getVol_id() + " - Name: " + volunteers.getFull_name() + " " + volunteers.getPhone());
-        }
-    }
-
-	private void displayOrgById () throws SQLException {
-			System.out.println("Enter organization ID: ");
-			int org_id = Integer.parseInt(input.nextLine());
-			Organizations organizations = orgDao.getOrgById(org_id);
-			System.out.println(organizations.getOrg_id() + ": " + organizations.getName() + ", " + organizations.getAddress() + " " + organizations.getPhone());
+        System.out.println(organizations.getOrg_id() + ": " + organizations.getName() + ", " + organizations.getAddress() + " " + organizations.getPhone());
 //			for (Volunteers volunteers : organizations.getVolunteers()) {
 //				System.out.println("\tOrganization ID: " + volunteers.getVol_id() + " - Name: " + volunteers.getFull_name() + " " + volunteers.getPhone());
 //			}
-		}
-
-        orgDao.createNewOrg(name, address, phone);
     }
 
-    private void updateOrganization() throws SQLException {
-        System.out.println("Enter ID of the organization to update: ");
-        int org_id = Integer.parseInt(input.nextLine());
-        System.out.println("Enter updated name: ");
-        String name = input.nextLine();
-        System.out.println("Enter updated address: ");
-        String address = input.nextLine();
-        System.out.println("Enter updated phone number: ");
-        String phone = input.nextLine();
-
-	private void updateOrg () throws SQLException {
-			System.out.println("Enter ID of the organization to update: ");
-			int org_id = Integer.parseInt(input.nextLine());
-			System.out.println("Enter updated name: ");
-			String name = input.nextLine();
-			System.out.println("Enter updated address: ");
-			String address = input.nextLine();
-			System.out.println("Enter updated phone number: ");
-			String phone = input.nextLine();
-
-    private void deleteOrganization() throws SQLException {
-        System.out.print("Enter ID of the organization to delete: ");
-        int org_id = Integer.parseInt(input.nextLine());
-        orgDao.deleteOrgById(org_id);
-    }
-
-	private void deleteOrg () throws SQLException {
-			System.out.print("Enter ID of the organization to delete: ");
-			int org_id = Integer.parseInt(input.nextLine());
-			orgDao.deleteOrgById(org_id);
-		}
 
     /**
      * sean's menu implementation
@@ -394,10 +414,11 @@ public class Menu {
         System.out.println("Enter Organization ID: ");
         int org_id = input.nextInt();
         System.out.println("Enter Project Name:");
+        input.nextLine();
         String proj_name = input.next();
         System.out.println("Enter Project Description:");
+        input.nextLine();
         String proj_desc = input.next();
-        //String proj_desc = String.parseInt(input.nextLine());
         projectsDao.addNewProj(org_id, proj_name, proj_desc);
     }
 
@@ -412,12 +433,9 @@ public class Menu {
         }
     }
 
-
     private void updateaproject() throws SQLException {
         projectsDao.updateProject();
-
     }
-
 
     private void deleteaproject() throws SQLException {
         System.out.println("Enter project id to delete:");
@@ -427,6 +445,8 @@ public class Menu {
 
     }
 }
+
+
 	
 	
 	
