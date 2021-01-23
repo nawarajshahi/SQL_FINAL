@@ -66,6 +66,7 @@ public class OrganizationsDao {
 		PreparedStatement ps = connection.prepareStatement(DELETE_ORG_BY_ID_QUERY);
 		ps.setInt(1, org_id);
 		ps.executeUpdate();
+		System.out.println();
 	}
 	
 
