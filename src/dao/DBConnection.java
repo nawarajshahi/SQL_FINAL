@@ -3,12 +3,15 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class DBConnection {
+	static Scanner input = new Scanner(System.in);
 	private static String database = "volunteers";
 	private final static String url = "jdbc:mysql://localhost:3306/" + database;
 	private final static String userName = "root";
-	private final static String password = "password";
+
+
 	private static Connection connection;
 	private static DBConnection instance;
 	
@@ -19,9 +22,11 @@ public class DBConnection {
 	public static Connection getConnection() {
 		if(instance == null) {
 			try {
-				connection = DriverManager.getConnection(url, userName, password);
+				System.out.println("Please enter your database password:");
+				String pass = input.nextLine();
+				connection = DriverManager.getConnection(url, userName, pass);
 				instance = new DBConnection(connection);
-				System.out.println("Successfully connected..");
+				System.out.println("Successfully connected.");
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}
@@ -30,3 +35,5 @@ public class DBConnection {
 	}
 
 }
+
+
