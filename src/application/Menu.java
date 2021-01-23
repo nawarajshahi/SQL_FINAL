@@ -232,11 +232,12 @@ public class Menu {
     private void displayVolunteers() throws SQLException {
         System.out.println("Printing volunteers.....");
         List<Volunteers> volunteers = volDao.getVolunteers();
+        System.out.println("Volunteer id \tOrganization id \tVolunteer Name\t\t\tVolunteer Phone");
         for (Volunteers vols : volunteers) {
-            System.out.println(String.format("Volunteer id: %d"
-                            + " \tOrganization id: %d "
-                            + " \tVolunteer name: %s"
-                            + "\t\t\tVolunteer phone: %s",
+            System.out.println(String.format("\t%d"
+                            + "\t\t\t\t\t%d "
+                            + "\t\t\t%s "
+                            + " \t\t\t%s",
                     vols.getVol_id(), vols.getOrg_id(),
                     vols.getFull_name(), vols.getPhone()));
         }
@@ -258,16 +259,12 @@ public class Menu {
             System.out.println(org_id + " does not exist in the database.\nWould you like to create the organization? (Y/N)");
             decision = input.next().charAt(0);
             if (decision == 'Y' || decision == 'y') {
-                //create an organization
                 createOrg();
             }
 
         } else {
 
             String full_name, phone;
-            int vol_id;
-            System.out.print("Enter volunteer id: ");
-            vol_id = Integer.parseInt(input.nextLine());
 
             System.out.print("Enter full name of the volunteer: ");
             full_name = input.nextLine();
@@ -275,7 +272,13 @@ public class Menu {
             System.out.print("Enter volunteer's phone number:");
             phone = input.nextLine();
 
-            volDao.createVolunteer(vol_id, org_id, full_name, phone);
+            int status = volDao.createVolunteer(org_id, full_name, phone);
+            if(status == 0){
+                System.out.println("\nError, could not create the volunteer");
+            }else{
+                System.out.println("\nSuccessfully added, and " + status + " row(s) affected.");
+            }
+
         }
     }
 
@@ -289,14 +292,10 @@ public class Menu {
         int vol_id = Integer.parseInt(input.nextLine());
         int executeVal = volDao.deleteVolunteerById(vol_id);
         if (executeVal == 0) {
-            System.out.println(vol_id + " could not be deleted. Please enter correct volunteer id.");
+            System.out.println("\n"+vol_id + " could not be deleted. Please enter correct volunteer id.");
             deleteAVolunteer();
         } else {
-            List<Volunteers> volunteer = volDao.getAVolunteerById(vol_id);
-            for (Volunteers vols : volunteer) {
-                System.out.println("Successfully deleted...");
-                System.out.println(vols.toString());
-            }
+            System.out.println("\nSuccessfully deleted, and " + executeVal + " row(s) affected.");
         }
 
     }
@@ -309,6 +308,7 @@ public class Menu {
     private void updateAVolunteer() throws SQLException {
         String full_name, phone;
         int vol_id, org_id;
+        System.out.println("Which volunteer would you like to update?");
         System.out.print("Enter volunteer id: ");
         vol_id = Integer.parseInt(input.nextLine());
 
@@ -320,7 +320,12 @@ public class Menu {
 
         System.out.print("Enter phone: ");
         phone = input.nextLine();
-        volDao.updateVolunteer(vol_id, org_id, full_name, phone);
+       int status = volDao.updateVolunteer(vol_id, org_id, full_name, phone);
+       if(status ==0){
+           System.out.println("\nError, could not update the field.");
+       }else{
+           System.out.println("\nSuccessfully updated, and " + status + " row(s) affected.");
+       }
 
     }
 
