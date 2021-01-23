@@ -71,6 +71,7 @@ public class VolunteersDao {
 	 * @param org_id 	the organization id to which the volunteer is part of
 	 * @param full_name 	full name of the volunteer
 	 * @param phone 	phone of the volunteer
+	 * @return			an int count of number of rows that were created or 0 for no addition
 	 * @throws SQLException
 	 */
 	public int createVolunteer(int org_id, String full_name, String phone) throws SQLException {
@@ -109,6 +110,7 @@ public class VolunteersDao {
 	 * @param org_id 	the organization id to which the volunteer is part of
 	 * @param full_name 	full name of the volunteer
 	 * @param phone 	phone of the volunteer
+	 * @return			an int count of number of rows that were updated or 0 for no update
 	 * @throws SQLException
 	 */
 	public int updateVolunteer(int vol_id, int org_id, String full_name, String phone) throws SQLException {
