@@ -1,4 +1,4 @@
-# SQL_FINAL
+# Java-MySQL CRUD Application
 This is a team project that involved creating CRUD application using Java and MySQL server. We choose to design a volunteers database that keeps a record of organizations, volunteers and different projects in each organizations. We worked together in designing the database, crafting the outlien of what our projects should look like and how it should function. Then, each of us took individual table within the databse to work on and implement CRUD functionality for that table. 
 
 Renee worked on the Organizations table which also involved authoring the OrganizationDao, the Organization entity, and crafting the Organization Menu. 
