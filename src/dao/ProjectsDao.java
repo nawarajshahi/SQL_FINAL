@@ -122,28 +122,28 @@ public class ProjectsDao {
 
 	private Projects populateProject(int id, int orgid, String Projname, String Projdesc) throws SQLException {
 		return new Projects(id, orgid, Projname, Projdesc);
-	}	
-	
-	
+	}
+
+
 	public boolean updateProject() throws SQLException
 	{
 		boolean _success = false;
 		System.out.print("Enter Project ID: ");
 		int projectID = keyboard.nextInt();
-		
+
 		Projects _project = getProjById(projectID);
-		
+
 		System.out.print("Update Organization ID: ");
 		int OrganizationId = keyboard.nextInt();
 		_project.setOrg_id(OrganizationId);
 		System.out.print("Update Project Name: ");
-		String ProjectsName = keyboard.next();
+		keyboard.nextLine();
+		String ProjectsName = keyboard.nextLine();
 		_project.setProj_name(ProjectsName);
 		System.out.print("Update Project Description: ");
-		String ProjectsDescription = keyboard.next();
+		//keyboard.nextLine();
+		String ProjectsDescription = keyboard.nextLine();
 		_project.setProj_desc(ProjectsDescription);
-		
-		//_success = handler.updateProject(projectID, _project);
 		
 		try {
 					String sql = "UPDATE volunteers.projects set org_id=?, proj_name=?, proj_desc =? WHERE proj_id =?";
