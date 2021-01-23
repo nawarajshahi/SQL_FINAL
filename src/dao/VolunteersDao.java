@@ -15,7 +15,7 @@ public class VolunteersDao {
 	private final String GET_VOLUNTEER_BY_ID = "SELECT * FROM volunteers WHERE vol_id = ?";
 	private final String CREATE_NEW_VOLUNTEER_QUERY = "INSERT INTO volunteers(vol_id, org_id, full_name, phone) VALUES (?, ?, ?, ?)";
 	private final String DELETE_VOLUNTEER_BY_ID_QUERY = "DELETE FROM volunteers WHERE vol_id = ?";
-	private final String DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY = "DELETE FROM members WHERE team_id = ?"; //Renee
+	private final String DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY = "DELETE FROM volunteers WHERE org_id = ?"; //Renee
 
 	private final String UPDATE_VOLUNTEER_BY_ID_QUERY = "UPDATE volunteers SET org_id=?, full_name=?, phone=? WHERE vol_id=?";
 
