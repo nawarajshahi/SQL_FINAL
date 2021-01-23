@@ -281,7 +281,7 @@ public class Menu {
 
 
     /**
-     * deleteAVolunteer() method implementation
+     * deleteAVolunteer() method implementation deletes a volunteer
      * @throws SQLException
      */
     private void deleteAVolunteer() throws SQLException {
