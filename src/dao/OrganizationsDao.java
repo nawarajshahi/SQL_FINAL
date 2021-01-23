@@ -40,8 +40,11 @@ public class OrganizationsDao {
 		PreparedStatement ps = connection.prepareStatement(GET_ORG_BY_ID_QUERY);
 		ps.setInt(1, org_id);
 		ResultSet rs = ps.executeQuery();
-		rs.next();
-		return populateOrganization(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4));
+
+		if(rs.next()){
+			return populateOrganization(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4));
+		}
+		return null;
 	}
 	
 	public void createNewOrg(String name, String address, String phone) throws SQLException {
