@@ -370,13 +370,11 @@ public class Menu {
 
     private void addNewProj() throws SQLException {
         System.out.println("Enter Organization ID: ");
-        int org_id = input.nextInt();
+        int org_id = Integer.parseInt(input.nextLine());
         System.out.println("Enter Project Name:");
-        input.nextLine();
-        String proj_name = input.next();
+        String proj_name = input.nextLine();
         System.out.println("Enter Project Description:");
-        input.nextLine();
-        String proj_desc = input.next();
+        String proj_desc = input.nextLine();
         projectsDao.addNewProj(org_id, proj_name, proj_desc);
     }
 

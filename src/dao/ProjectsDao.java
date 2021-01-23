@@ -175,8 +175,6 @@ public class ProjectsDao {
 		return _success;
 	}
 		
-	
-
 		
 	public Projects getProject(int id)
 	{
@@ -197,8 +195,7 @@ public class ProjectsDao {
 				
 			}
 			
-			
-					
+							
 			}
 		 catch (Exception e) {
 			e.printStackTrace();
