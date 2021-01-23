@@ -1,15 +1,15 @@
 package entity;
 
+/**
+ * Authored by Sean Flaherty
+ */
+
 public class Projects {
 	private int proj_id;
 	private int org_id;
 	private String proj_name;
 	private String proj_desc;
-	
-	
-	
-	
-	
+
 	public Projects(int org_id, String proj_name, String proj_desc) {
 //		super();
 		//this.proj_id = proj_id;
@@ -21,7 +21,6 @@ public class Projects {
 	public Projects() {
 //		
 	}
-
 	
 	public Projects(int proj_id,int org_id, String proj_name, String proj_desc) {
 
@@ -31,10 +30,6 @@ public class Projects {
 		this.proj_desc = proj_desc;
 	}	
 
-	
-	
-	
-	
 	
 	public int getProj_id() {
 		return proj_id;

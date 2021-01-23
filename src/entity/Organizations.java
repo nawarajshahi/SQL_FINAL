@@ -2,6 +2,10 @@ package entity;
 
 import java.util.List;
 
+/**
+ * Authored by Renee Dubuc
+ */
+
 public class Organizations {
 	
 	private int org_id;

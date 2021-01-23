@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import entity.Organizations;
 
+/**
+ * Authored by Renee Dubuc
+ */
 public class OrganizationsDao {
 	
 	private Connection connection;

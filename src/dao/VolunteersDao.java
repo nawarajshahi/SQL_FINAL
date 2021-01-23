@@ -6,17 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
 import entity.Volunteers;
 
+/**
+ * Authored by Nawaraj Shahi
+ */
+
 public class VolunteersDao {
+
 	private final String GET_VOLUNTEERS_QUERY = "SELECT * FROM volunteers LIMIT 20";
-	private final String GET_VOLUNTEER_BY_ID = "SELECT * FROM volunteers WHERE vol_id = ?";
+	private final String GET_VOLUNTEER_BY_ID_QUERY = "SELECT * FROM volunteers WHERE vol_id = ?";
 	private final String CREATE_NEW_VOLUNTEER_QUERY = "INSERT INTO volunteers(vol_id, org_id, full_name, phone) VALUES (?, ?, ?, ?)";
 	private final String DELETE_VOLUNTEER_BY_ID_QUERY = "DELETE FROM volunteers WHERE vol_id = ?";
 	private final String DELETE_VOLUNTEERS_BY_TEAM_ID_QUERY = "DELETE FROM volunteers WHERE org_id = ?"; //Renee
-
 	private final String UPDATE_VOLUNTEER_BY_ID_QUERY = "UPDATE volunteers SET org_id=?, full_name=?, phone=? WHERE vol_id=?";
 
 	
@@ -51,7 +53,7 @@ public class VolunteersDao {
 	 * @throws SQLException
 	 */
 	public List<Volunteers> getAVolunteerById(int vol_id) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement(GET_VOLUNTEER_BY_ID);
+		PreparedStatement ps = connection.prepareStatement(GET_VOLUNTEER_BY_ID_QUERY);
 		ps.setInt(1, vol_id);
 		
 		ResultSet rs = ps.executeQuery();
@@ -60,7 +62,6 @@ public class VolunteersDao {
 			volunteer.add(new Volunteers(rs.getInt(1), rs.getInt(2), rs.getString(3),
 					rs.getString(4)));
 		}
-		
 		return volunteer;
 	}
 
@@ -86,8 +87,7 @@ public class VolunteersDao {
 	/**
 	 * deleteVolunteerById() method implementation
 	 * @param vol_id	volunteer id in the database
-	 * @return			an int count of number of rows that were deleted
-	 * 					or 0 for no deletion
+	 * @return			an int count of number of rows that were deleted or 0 for no deletion
 	 * @throws SQLException
 	 */
 	public int deleteVolunteerById(int vol_id) throws SQLException {
@@ -121,7 +121,5 @@ public class VolunteersDao {
 		ps.setInt(4, vol_id);
 		ps.executeUpdate();
 	}
-
-	
 	
 }
