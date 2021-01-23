@@ -1,6 +1,5 @@
 package entity;
 
-
 /**
  * Authored by Nawaraj Shahi
  */
@@ -116,8 +115,5 @@ public class Volunteers {
 				vol_id, org_id, 
 				full_name, phone);
 	}
-
-		
-	
 
 }
